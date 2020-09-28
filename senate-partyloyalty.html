@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>TGIF Senate</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" href="img/LOGOTGIF.png">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-7">
+        <a href="https://www.whitehouse.gov/the_press_office/TransparencyandOpenGovernment"><img class="mt-2"
+            id="tgif-logo" src="img/LOGOTGIF.png" alt="logo"></a>
+      </div>
+      <div class="col-5">
+        <div class="float-right mt-3">
+          <a href="mailto:info@tgif.net"><img class="img-fluid mx-auto" id="mail-logo" src="img/mail-logo.png"
+              alt="mail-logo"></a>
+          <a class="mt-4" id="mail" href="mailto:info@tgif.net">info@tgif</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light mt-3 col-12">
+        <a class="navbar-brand" href="#">TGIF Senate</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="home-starter-page.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Congress 113
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="senate-data.html">Senate</a>
+                <a class="dropdown-item" href="house-data.html">House</a>
+              </div>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Attendance
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="senate-attendance.html">Senate</a>
+                <a class="dropdown-item" href="house-attendance.html">House</a>
+              </div>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Party Loyalty
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="senate-partyloyalty.html">Senate</a>
+                <a class="dropdown-item" href="house-partyloyalty.html">House</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+    </div>
+    <!--Table container-->
+    <div id="app">
+      <div class="row mt-4">
+        <div class="col-12 col-md-6">
+          <h2>Party Loyalty</h2>
+          <p class="text-justify">Those who consider themselves to be strong partisans, strong Democrats and strong
+            Republicans respectively, tend to be the most faithful in voting for their party's nominee for office and
+            legislation that backs their party's agenda.</p>
+        </div>
+        <div class="col-12 col-md-6">
+          <h2 class="float-right">Senate at a glance</h2>
+          <table class="table table-responsive">
+            <thead>
+              <tr>
+                <th>Party</th>
+                <th>Number of Reps</th>
+                <th>% Voted with Prty</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Republican</td>
+                <td>{{ statistics.republican.length }}</td>
+                <td>{{ statistics.repvotedwithpct }}</td>
+              </tr>
+              <tr>
+                <td>Democrat</td>
+                <td>{{ statistics.democrat.length }}</td>
+                <td>{{ statistics.demvotedwithpct }}</td>
+              </tr>
+              <tr>
+                <td>Independent</td>
+                <td>{{ statistics.independent.length }}</td>
+                <td>{{ statistics.idvotedwithpct }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row mt-4">
+          <div class="col-12 col-md-6">
+            <h2>Least Loyal (Bottom 10% Attendance)</h2>
+            <table class="table table-responsive">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Number of Missed Votes</th>
+                  <th>% Missed</th>
+                </tr>
+              </thead>
+              <tbody id="leastLoyal">
+                <tr v-for="x in statistics.leastLoyal">
+                  <td> {{ x.first_name }} {{ x.last_name }}</td>
+                  <td> {{ x.total_votes }} </td>
+                  <td> {{ x.votes_with_party_pct}}%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-12 col-md-6">
+            <h2>Most Loyal (Top 10% Attendance)</h2>
+            <table class="table table-responsive">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Number of Missed Votes</th>
+                  <th>% Missed</th>
+                </tr>
+              </thead>
+              <tbody id="mostLoyal">
+                <tr v-for="x in statistics.mostLoyal">
+                  <td> {{ x.first_name }} {{ x.last_name }}</td>
+                  <td> {{ x.total_votes }} </td>
+                  <td> {{ x.votes_with_party_pct}}%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/statistics.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>
